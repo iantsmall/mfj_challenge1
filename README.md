@@ -39,7 +39,21 @@ We really care about 3 properties of a word:
 Given the square "RME,WCL,KGT,IPA" and a word file containing:
 
 ```text
+BANANA
+RPKLW
+RP
+.DL
+WLR
+WPG
 ```
+
+The output should be (not necessarily in the same line order):
+
+> RPKLW,WLR
+>
+> RPKLW,WPG
+>
+> WLR,RPKLW
 
 ## Brute force solution
 
