@@ -5,14 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 
 class Square {
-    private List<String> sides;
+    private final List<String> sides;
 
     /**
      * Create a LetterBox game's Square from a string square definition
-     * @param def the string defintion of a square, in the format "ABC,EGL,API"
+     *
+     * @param def the case insensitive string defintion of a square, in the format "ABC,EGL,API"
      */
     public Square(String def) {
-        var sides = Arrays.asList(def.split(","));
+        var sides = Arrays.asList(def.toUpperCase().split(","));
         var numSides = sides.size();
         if (numSides != 4) {
             var msg = String.format("Square string definition must have 4 sides");

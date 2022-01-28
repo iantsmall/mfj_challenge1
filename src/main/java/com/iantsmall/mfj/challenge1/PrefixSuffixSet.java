@@ -6,10 +6,10 @@ import java.util.stream.Stream;
 
 class PrefixSuffixSet {
 
-    private Collection<String> prefixes = new ArrayList<String>();
-    private Collection<String> suffixes = new ArrayList<String>();
+    private final Collection<String> prefixes = new ArrayList<String>();
+    private final Collection<String> suffixes = new ArrayList<String>();
 
-    PrefixSuffixSet(){
+    PrefixSuffixSet() {
     }
 
     public void addPrefix(String word) {
@@ -21,13 +21,14 @@ class PrefixSuffixSet {
     }
 
     /**
-     * Converts the
+     * Unions the prefixes and suffixes into a stream of WordPairs
+     *
      * @return
      */
-    public Stream<WordPair> toWordPairs(){
-        var prefixesStream = this.prefixes.stream();
-        var suffixesStream = this.suffixes.stream();
-        return prefixesStream.flatMap(p -> suffixesStream.map(s ->  new WordPair(p,s)));
+    public Stream<WordPair> toWordPairs() {
+        return this.prefixes.stream().flatMap(
+                p -> this.suffixes.stream().map(
+                        s -> new WordPair(p, s)));
     }
 
 }
