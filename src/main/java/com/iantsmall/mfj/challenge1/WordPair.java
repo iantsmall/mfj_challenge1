@@ -1,6 +1,6 @@
 package com.iantsmall.mfj.challenge1;
 
-// TODO consider Lombox for cleaner code
+// TODO consider Lombok for cleaner code
 class WordPair {
     public String prefix;
     public String suffix;
