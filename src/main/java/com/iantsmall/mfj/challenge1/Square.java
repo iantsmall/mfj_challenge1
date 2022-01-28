@@ -8,7 +8,7 @@ class Square {
     private final List<String> sides;
 
     /**
-     * Create a LetterBox game's Square from a string square definition
+     * Create a LetterBox game's Square from a string square definition.
      *
      * @param def the case insensitive string defintion of a square, in the format "ABC,EGL,API"
      */
@@ -29,7 +29,7 @@ class Square {
      */
     public int side(char letter) {
         var letterString = Character.toString(letter).toUpperCase();
-        for (var i = 0; i < 3; ++i) {
+        for (var i = 0; i <= 3; ++i) {
             if (this.sides.get(i).contains(letterString)) {
                 return i;
             }
