@@ -1,5 +1,8 @@
 # Letter Box
 
+This is a WIP project. At this time the initial "white board" coding is completed to the point of successfully compiling, but has not yet been tested.
+See the [MFJ Challenge 1 Project](https://github.com/users/iantsmall/projects/5) for progress on final completion of this project.
+
 ## Requirements and assumptions
 
 NYT has a game called "Letter Boxed". 
@@ -15,11 +18,12 @@ Letters can be reused
 
 **Assumptions**
 
-1. Algorithm should be case insensitive
-2. By "letters" the rules literally mean A-Z
-3. Non-matching words can (and should) be ignored entirely once they are detected
-4. Use only base language syntax in the implementation ( I will discuss expanded options in "further optimizations")
-5. "words" files are of a "reasonable size", ie. of a size which could be loaded fully into memory without performance issues
+1. Code should be "native" with minimal non-language features (Demonstrating the concept rather than the power of external libraries)
+2. Algorithm should be case insensitive
+3. By "letters" the rules literally mean A-Z
+4. Non-matching words can (and should) be ignored entirely once they are detected
+5. Use only base language syntax in the implementation ( I will discuss expanded options in "further optimizations")
+6. "words" files are of a "reasonable size", ie. of a size which could be loaded fully into memory without performance issues
 
 ### Notes on requirements
 
@@ -127,10 +131,17 @@ endsWith by processing lines simultaneously
   * return prefixSuffixSets;
 * return toWordPairs(filePathArg, squareStringArg).flatmap( x -> x.toWordPairs);
 
-## Larger Scale Optimizations
+## Possible Improvements
+
+### External Libs and Tools
+
+External libs and tools can cleanup and enchance the code
+
+### Larger Scale Optimizations
 
 At scale, other options could include:
 
 - Storing the words in a database, and using db native features such as partitions and indexes to rapidly build paginated output
 - Building off of data storage centralization in a DB, processing could occur a cloud with many nodes processing at once
 - Use a sort of CQRS to setup various steps of the process, and split distribute the steps over time asynchronously
+- Instead of a Java implementation a lighter implementation like Node which could run on an AWS lambda could create a massively parallel system.
