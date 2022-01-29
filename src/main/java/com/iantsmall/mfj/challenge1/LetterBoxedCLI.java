@@ -5,7 +5,8 @@ public class LetterBoxedCLI {
         if (args == null || args.length != 2) {
             throw new IllegalArgumentException("Expected 2 arguments, the file path and the square string");
         }
-        LetterBoxed.play(args[0], args[1])
+        final var words = new Words(args[0]);
+        LetterBoxed.play(words, args[1])
                 .forEach(wordPair -> System.out.println(wordPair));
     }
 }
