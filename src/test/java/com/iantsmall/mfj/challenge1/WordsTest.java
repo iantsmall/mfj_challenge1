@@ -2,22 +2,17 @@ package com.iantsmall.mfj.challenge1;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.BDDMockito;
 
-import java.io.IOError;
 import java.nio.file.NoSuchFileException;
-import java.util.Arrays;
-import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class WordsTest {
     final static String wordsPath = "src/test/resources/words.txt";
-    final static String nonexistentPath = wordsPath+".nonexistentExtension";
+    final static String nonexistentPath = wordsPath + ".nonexistentExtension";
 
     @ParameterizedTest
     @NullAndEmptySource
@@ -33,11 +28,13 @@ class WordsTest {
 
     @Test
     void consumeWords_givenNonexistentFilepath() {
-        assertThrows(NoSuchFileException.class, () -> new Words(nonexistentPath).consumeWords((stream) -> {}));
+        assertThrows(NoSuchFileException.class, () -> new Words(nonexistentPath).consumeWords((stream) -> {
+        }));
     }
 
     @Test
     void consumeWords_givenLegalArguments_doesNotThrow() {
-        assertDoesNotThrow(() -> new Words(wordsPath).consumeWords((stream) -> {}));
+        assertDoesNotThrow(() -> new Words(wordsPath).consumeWords((stream) -> {
+        }));
     }
 }

@@ -4,17 +4,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class Words {
     final String fileName;
 
     public Words(final String fileName) {
-        if(fileName == null){
+        if (fileName == null) {
             throw new IllegalArgumentException("Words constructor given unexpected nonnull filename");
-        }
-        else if(fileName.trim().length() == 0){
+        } else if (fileName.trim().length() == 0) {
             throw new IllegalArgumentException("Words constructor given unexpected nonblank filename");
         }
         this.fileName = fileName;

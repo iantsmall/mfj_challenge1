@@ -9,18 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SquareTest {
 
-    private static class SideTestArg{
-        final int expectedSide;
-        final String squareDef;
-        final char letter;
-
-        private SideTestArg(String squareDef, char letter, int expectedSide) {
-            this.expectedSide = expectedSide;
-            this.squareDef = squareDef;
-            this.letter = letter;
-        }
-    }
-
     static Stream<SideTestArg> argsProvider() {
         final String squareDef = "abc,def,hij,klm";
         return Stream.of(
@@ -55,33 +43,7 @@ class SquareTest {
                 new SideTestArg(squareDef.toUpperCase(), 'D', 1),
                 new SideTestArg(squareDef.toUpperCase(), 'H', 2),
                 new SideTestArg(squareDef.toUpperCase(), 'K', 3)
-                );
-    }
-
-    @ParameterizedTest
-    @MethodSource("argsProvider")
-    void side(SideTestArg p) {
-        assertEquals(new Square(p.squareDef).side(p.letter), p.expectedSide);
-    }
-
-    private static class TestArg_isValid{
-        final String squareDef;
-        final String word;
-        final boolean expectedResponse;
-        private TestArg_isValid(String squareDef, String word, boolean expectedResponse) {
-            this.squareDef = squareDef;
-            this.word = word;
-            this.expectedResponse = expectedResponse;
-        }
-
-        @Override
-        public String toString() {
-            return "TestArg_isValid{" +
-                    "squareDef='" + squareDef + '\'' +
-                    ", word='" + word + '\'' +
-                    ", expectedResponse=" + expectedResponse +
-                    '}';
-        }
+        );
     }
 
     static Stream<TestArg_isValid> isValid_argsProvider() {
@@ -117,8 +79,47 @@ class SquareTest {
     }
 
     @ParameterizedTest
+    @MethodSource("argsProvider")
+    void side(SideTestArg p) {
+        assertEquals(new Square(p.squareDef).side(p.letter), p.expectedSide);
+    }
+
+    @ParameterizedTest
     @MethodSource("isValid_argsProvider")
     void isValid(TestArg_isValid p) {
         assertEquals(new Square(p.squareDef).isValid(p.word), p.expectedResponse, p.toString());
+    }
+
+    private static class SideTestArg {
+        final int expectedSide;
+        final String squareDef;
+        final char letter;
+
+        private SideTestArg(String squareDef, char letter, int expectedSide) {
+            this.expectedSide = expectedSide;
+            this.squareDef = squareDef;
+            this.letter = letter;
+        }
+    }
+
+    private static class TestArg_isValid {
+        final String squareDef;
+        final String word;
+        final boolean expectedResponse;
+
+        private TestArg_isValid(String squareDef, String word, boolean expectedResponse) {
+            this.squareDef = squareDef;
+            this.word = word;
+            this.expectedResponse = expectedResponse;
+        }
+
+        @Override
+        public String toString() {
+            return "TestArg_isValid{" +
+                    "squareDef='" + squareDef + '\'' +
+                    ", word='" + word + '\'' +
+                    ", expectedResponse=" + expectedResponse +
+                    '}';
+        }
     }
 }
