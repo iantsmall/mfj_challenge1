@@ -8,33 +8,15 @@ import java.util.stream.Stream;
 
 class LetterBoxed {
 
-    private static boolean isValid(Square square, String word) {
-        // a valid word is at least 3 letters long, with a letter on each square side, and no repeating sides.
-        // argument length check
-        if (word == null || word.length() < 3) {
-            return false;
-        }
-        // now check if it matches the square
-        var lastSide = -1;
-        // TODO consider a regex as an alternative
-        for (var letter : word.toCharArray()) {
-            var side = square.side(letter);
-            if (side == -1 || side == lastSide) {
-                return false;
-            }
-        }
-        // successfully navigated the square to the end of the word
-        return true;
-    }
-
-    public static List<PrefixSuffixSet> toPrefixSuffixSets(String fileName, String squareString) {
+    public static List<PrefixSuffixSet> toPrefixSuffixSets(String fileName, String squareString)
+            throws IllegalArgumentException{
         var square = new Square(squareString);
         var prefixSuffixSets = Stream.generate(() -> new PrefixSuffixSet())
                 .limit(26)
                 .collect(Collectors.toList());
         // for each( word in file.lines ): // use a stream
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
-            stream.filter(s -> LetterBoxed.isValid(square, s))
+            stream.filter(s -> square.isValid(s))
                     .forEach(s -> {
                         var word = s.trim().toUpperCase();
                         var startsWith = word.charAt(0) - 'A';
@@ -48,7 +30,7 @@ class LetterBoxed {
         return prefixSuffixSets;
     }
 
-    public static Stream<WordPair> play(String fileName, String squareString) {
+    public static Stream<WordPair> play(String fileName, String squareString) throws IllegalArgumentException {
         return toPrefixSuffixSets(fileName, squareString).stream().flatMap(PrefixSuffixSet::toWordPairs);
     }
 

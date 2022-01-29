@@ -23,6 +23,26 @@ class Square {
         this.sides = sides;
     }
 
+    public boolean isValid(String word) {
+        // a valid word is at least 3 letters long, with a letter on each square side, and no repeating sides.
+        // argument length check
+        if (word == null || word.length() < 3) {
+            return false;
+        }
+        // now check if it matches the square
+        var lastSide = -1;
+        // TODO consider a regex as an alternative
+        for (var letter : word.toCharArray()) {
+            var side = this.side(letter);
+            if (side == -1 || side == lastSide) {
+                return false;
+            }
+            lastSide = side;
+        }
+        // successfully navigated the square to the end of the word
+        return true;
+    }
+
     /**
      * @param letter a string containing a single letter
      * @return the index of the side the letter is in, 0-3, -1 if not present
