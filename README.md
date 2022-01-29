@@ -19,11 +19,11 @@ Letters can be reused
 **Assumptions**
 
 1. Code should be "native" with minimal non-language features (Demonstrating the concept rather than the power of external libraries)
-2. Algorithm should be case insensitive
+2. Algorithm should be case-insensitive
 3. By "letters" the rules literally mean A-Z
 4. Non-matching words can (and should) be ignored entirely once they are detected
 5. Use only base language syntax in the implementation ( I will discuss expanded options in "further optimizations")
-6. "words" files are of a "reasonable size", ie. of a size which could be loaded fully into memory without performance issues
+6. "words" files are of a "reasonable size", i.e. of a size which could be loaded fully into memory without performance issues
 
 ### Notes on requirements
 
@@ -75,7 +75,7 @@ The output should be (not necessarily in the same line order):
 * For each( prefix in file.lines ):
   * For each( suffix in file.lines ):
     * If (isValid(square, prefix) && isValid(square, prefix) && prefix[0] == suffix[suffix.length-1]):
-      * wordPairs.push({prefix, suffix))
+      * wordPairs.push({prefix, suffix})
 * return wordPairs
       
 ### Big O of Brute Force
@@ -95,7 +95,7 @@ word pairs, instead return a prefixSuffixSet array. These could be "unpacked" la
 function, and would represent a dramatic savings in memory. Where p is the number of prefixes, and s is the number of 
 suffixes,  then this is an improvement from `O(p*s)` to `O(p+s)`. Expressed instead with n as each word, then `O(n^2)` 
 to `O(n)`.
-   - This does not follow the letter of the challenge so I will encapsulate this, and unpack in a wrapper function
+   - This does not follow the letter of the challenge, so I will encapsulate this, and unpack in a wrapper function
    - This does reduce runtime to `O(n)`, but it does so by skipping the final word pair creation.
 - *Language optimization:* by processing in file lines asynchronously we can speed up creation of startsWith and 
 endsWith by processing lines simultaneously
@@ -118,7 +118,7 @@ endsWith by processing lines simultaneously
 * define class PrefixSuffixSet
   * define property prefixes = []
   * define property suffixes = []
-  * define method toWordPairs(){ return this.prefixes.flatmap(p -> this.suffixes.map(s -> [p, s] ) }
+  * define method toWordPairs(){ return this.prefixes.flatmap(p -> this.suffixes.map(s -> [p, s] ) )
 * create a function toWordPairs(filePath, squareString): PrefixSuffixSet[]
   * square = squareString.split(',') // split into an array on ','
   * prefixSuffixSets = Array initialized with 27 new PrefixSuffixSets
@@ -135,7 +135,7 @@ endsWith by processing lines simultaneously
 
 ### External Libs and Tools
 
-External libs and tools can cleanup and enchance the code
+External libs and tools can clean up and enhance the code
 
 ### Larger Scale Optimizations
 
@@ -143,5 +143,5 @@ At scale, other options could include:
 
 - Storing the words in a database, and using db native features such as partitions and indexes to rapidly build paginated output
 - Building off of data storage centralization in a DB, processing could occur a cloud with many nodes processing at once
-- Use a sort of CQRS to setup various steps of the process, and split distribute the steps over time asynchronously
+- Use a sort of CQRS to set up various steps of the process, and split distribute the steps over time asynchronously
 - Instead of a Java implementation a lighter implementation like Node which could run on an AWS lambda could create a massively parallel system.

@@ -10,16 +10,15 @@ class Square {
     /**
      * Create a LetterBox game's Square from a string square definition.
      *
-     * @param def the case insensitive string defintion of a square, in the format "ABC,EGL,API"
+     * @param def the case-insensitive string definition of a square, in the format "ABC,EGL,API"
      */
     public Square(String def) {
         var sides = Arrays.asList(def.toUpperCase().split(","));
         var numSides = sides.size();
         if (numSides != 4) {
-            var msg = String.format("Square string definition must have 4 sides");
+            var msg = String.format("Square string definition must have 4 sides, discovered %o", numSides);
             throw new InvalidParameterException(msg);
         }
-        sides.forEach(String::toUpperCase);
         this.sides = sides;
     }
 

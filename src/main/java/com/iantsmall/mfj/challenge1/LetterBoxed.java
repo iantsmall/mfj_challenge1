@@ -9,9 +9,9 @@ class LetterBoxed {
 
     public static List<PrefixSuffixSet> toPrefixSuffixSets(Words words, String squareString) throws IllegalArgumentException {
         var square = new Square(squareString);
-        var prefixSuffixSets = Stream.generate(() -> new PrefixSuffixSet()).limit(26).collect(Collectors.toList());
+        var prefixSuffixSets = Stream.generate(PrefixSuffixSet::new).limit(26).collect(Collectors.toList());
         try {
-            words.consumeWords((steam) -> steam.filter(s -> square.isValid(s)).forEach(s -> {
+            words.consumeWords((steam) -> steam.filter(square::isValid).forEach(s -> {
                 var word = s.trim().toUpperCase();
                 var startsWith = word.charAt(0) - 'A';
                 var endsWith = word.charAt(word.length() - 1) - 'A';

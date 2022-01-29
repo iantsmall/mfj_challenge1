@@ -2,10 +2,10 @@ package com.iantsmall.mfj.challenge1;
 
 // TODO consider Lombok for cleaner code
 class WordPair {
-    public String prefix;
-    public String suffix;
+    public final String prefix;
+    public final String suffix;
 
-    WordPair(String prefix, String suffix) {
+    WordPair(final String prefix, final String suffix) {
         this.prefix = prefix;
         this.suffix = suffix;
     }

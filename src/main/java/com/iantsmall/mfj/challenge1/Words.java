@@ -13,7 +13,7 @@ public class Words {
         if (fileName == null) {
             throw new IllegalArgumentException("Words constructor given unexpected nonnull filename");
         } else if (fileName.trim().length() == 0) {
-            throw new IllegalArgumentException("Words constructor given unexpected nonblank filename");
+            throw new IllegalArgumentException("Words constructor given unexpected non-blank filename");
         }
         this.fileName = fileName;
     }

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class WordPairTest {
 
+    @SuppressWarnings("SpellCheckingInspection")
     @Test
     void testToString() {
         var prefix = "abcde";

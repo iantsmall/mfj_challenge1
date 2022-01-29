@@ -46,6 +46,7 @@ class SquareTest {
         );
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     static Stream<TestArg_isValid> isValid_argsProvider() {
         final var squareDef = "abc,def,hij,klm";
         // TODO setup checking each unicode character for checking edge cases
@@ -107,6 +108,7 @@ class SquareTest {
         final String word;
         final boolean expectedResponse;
 
+        @SuppressWarnings("SameParameterValue")
         private TestArg_isValid(String squareDef, String word, boolean expectedResponse) {
             this.squareDef = squareDef;
             this.word = word;
