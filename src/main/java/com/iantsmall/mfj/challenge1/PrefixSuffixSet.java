@@ -17,7 +17,7 @@ class PrefixSuffixSet {
     }
 
     public void addSuffix(String word) {
-        this.prefixes.add(word);
+        this.suffixes.add(word);
     }
 
     /**
@@ -26,9 +26,14 @@ class PrefixSuffixSet {
      * @return
      */
     public Stream<WordPair> toWordPairs() {
-        return this.prefixes.stream().flatMap(
-                p -> this.suffixes.stream().map(
+        return this.prefixes.parallelStream().flatMap(
+                p -> this.suffixes.parallelStream().map(
                         s -> new WordPair(p, s)));
+        // Alternative implementation
+//        return this.prefixes.parallelStream()
+//                .map( p -> this.suffixes.parallelStream().map(s -> new WordPair(p, s)))
+//                .reduce(Stream::concat)
+//                .orElse(Stream.empty());
     }
 
 }

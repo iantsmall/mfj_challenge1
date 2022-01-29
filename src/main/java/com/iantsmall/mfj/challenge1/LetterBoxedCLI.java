@@ -8,6 +8,7 @@ public class LetterBoxedCLI {
         final var words = new Words(args[0]);
         // Note: With something like Spring's dependency injection unit testing would be much simpler
         LetterBoxed.play(words, args[1])
-                .forEach(wordPair -> out.println(wordPair));
+                .map(WordPair::toString)
+                .forEach(out::println);
     }
 }

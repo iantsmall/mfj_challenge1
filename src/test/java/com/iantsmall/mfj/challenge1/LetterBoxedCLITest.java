@@ -7,6 +7,7 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,12 +30,11 @@ public class LetterBoxedCLITest {
     @Test
     void run() {
         final var args = new String[]{"src/test/resources/words.txt", "dzt,hqg,eau,yro"};
-        final var wordPairStream = Stream.of(
+        final var wordPairs = Arrays.asList(
                 new WordPair("test1","pair1"),
-                new WordPair("test2","pair2")
-        );
+                new WordPair("test2","pair2"));
         try (MockedStatic<LetterBoxed> playMockedStatic = mockStatic(LetterBoxed.class)) {
-            playMockedStatic.when(() -> LetterBoxed.play(any(), any())).thenReturn(wordPairStream);
+            playMockedStatic.when(() -> LetterBoxed.play(any(), any())).thenReturn(wordPairs.stream());
             LetterBoxedCLI.run(args, outMock);
             playMockedStatic.verify(() -> LetterBoxed.play(wordsArgumentCaptor.capture(), squareDefArgumentCaptor.capture()));
             final var playedWords = wordsArgumentCaptor.getValue();
@@ -44,10 +44,7 @@ public class LetterBoxedCLITest {
             assertNotNull(playedSquareDef);
             assertEquals(playedSquareDef, args[1]);
         }
-        Stream.of(
-                "test1,pair1",
-                "test2,pair2"
-        ).forEach((wordPair)-> then(outMock).should().println(wordPair.toString()));
+        wordPairs.forEach((wordPair)-> then(outMock).should().println(wordPair.toString()));
         then(outMock).shouldHaveNoMoreInteractions();
     }
 }
