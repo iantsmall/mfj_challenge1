@@ -10,7 +10,13 @@ import java.util.stream.Stream;
 public class Words {
     final String fileName;
 
-    public Words(String fileName) {
+    public Words(final String fileName) {
+        if(fileName == null){
+            throw new IllegalArgumentException("Words constructor given unexpected nonnull filename");
+        }
+        else if(fileName.trim().length() == 0){
+            throw new IllegalArgumentException("Words constructor given unexpected nonblank filename");
+        }
         this.fileName = fileName;
     }
 

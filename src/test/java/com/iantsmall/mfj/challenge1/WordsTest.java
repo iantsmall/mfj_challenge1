@@ -6,6 +6,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.BDDMockito;
 
 import java.io.IOError;
 import java.nio.file.NoSuchFileException;
@@ -16,24 +17,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WordsTest {
     final static String wordsPath = "src/test/resources/words.txt";
+    final static String nonexistentPath = wordsPath+".nonexistentExtension";
 
-    static Stream<Arguments> invalidArgsProvider() {
-        return Stream.of(
-                Arguments.of((Object) new String[]{"", "abc,def,hij,klm"})
-                , Arguments.of((Object) new String[]{"invalid file path", "abc,def,hij,klm"})
-        );
+    @ParameterizedTest
+    @NullAndEmptySource
+    void constructor_givenIllegalArguments(String path) {
+        assertThrows(IllegalArgumentException.class, () -> new Words(path));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"src/test/resources/non-existentFile.txt"})
-    @NullAndEmptySource
-    void consumeWords_givenIllegalArguments(String path) {
-        assertThrows(NoSuchFileException.class, () -> new Words(path).consumeWords((stream) -> {}));
+    @ValueSource(strings = {wordsPath, nonexistentPath})
+    void constructor_givenLegalArguments(String path) {
+        assertDoesNotThrow(() -> new Words(path));
+    }
+
+    @Test
+    void consumeWords_givenNonexistentFilepath() {
+        assertThrows(NoSuchFileException.class, () -> new Words(nonexistentPath).consumeWords((stream) -> {}));
     }
 
     @Test
     void consumeWords_givenLegalArguments_doesNotThrow() {
         assertDoesNotThrow(() -> new Words(wordsPath).consumeWords((stream) -> {}));
-        // TODO check retrieved words list
     }
 }
