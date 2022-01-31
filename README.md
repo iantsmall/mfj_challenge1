@@ -19,11 +19,12 @@ Letters can be reused
 **Assumptions**
 
 1. Code should be "native" with minimal non-language features (Demonstrating the concept rather than the power of external libraries)
-2. Algorithm should be case-insensitive
-3. By "letters" the rules literally mean A-Z
-4. Non-matching words can (and should) be ignored entirely once they are detected
-5. Use only base language syntax in the implementation ( I will discuss expanded options in "further optimizations")
-6. "words" files are of a "reasonable size", i.e. of a size which could be loaded fully into memory without performance issues
+2. Library exceptions are: Junit and Mockito for testing, and Lombok for improved readability (all code initially written w/o Lombok to demonstrate capability)
+3. Algorithm should be case-insensitive
+4. By "letters" the rules literally mean A-Z
+5. Non-matching words can (and should) be ignored entirely once they are detected
+6. Use only base language syntax in the implementation ( I will discuss expanded options in "further optimizations")
+7. "words" files are of a "reasonable size", i.e. of a size which could be loaded fully into memory without performance issues
 
 ### Notes on requirements
 
