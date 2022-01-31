@@ -39,7 +39,7 @@ public class LetterBoxedCLITest {
             playMockedStatic.verify(() -> LetterBoxed.play(wordsArgumentCaptor.capture(), squareDefArgumentCaptor.capture()));
             final var playedWords = wordsArgumentCaptor.getValue();
             assertNotNull(playedWords);
-            assertEquals(playedWords.fileName, args[0]);
+            assertEquals(playedWords.getFileName(), args[0]);
             final var playedSquareDef = squareDefArgumentCaptor.getValue();
             assertNotNull(playedSquareDef);
             assertEquals(playedSquareDef, args[1]);

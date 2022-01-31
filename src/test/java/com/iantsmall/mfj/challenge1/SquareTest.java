@@ -9,43 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SquareTest {
 
-    static Stream<SideTestArg> argsProvider() {
-        final String squareDef = "abc,def,hij,klm";
-        return Stream.of(
-                new SideTestArg(squareDef, ' ', -1),
-                new SideTestArg(squareDef, '1', -1),
-                new SideTestArg(squareDef, '\\', -1),
-                new SideTestArg(squareDef, '/', -1),
-                new SideTestArg(squareDef, ',', -1),
-                new SideTestArg(squareDef, '.', -1),
-                new SideTestArg(squareDef, 'a', 0),
-                new SideTestArg(squareDef, 'b', 0),
-                new SideTestArg(squareDef, 'c', 0),
-                new SideTestArg(squareDef, 'd', 1),
-                new SideTestArg(squareDef, 'e', 1),
-                new SideTestArg(squareDef, 'f', 1),
-                new SideTestArg(squareDef, 'h', 2),
-                new SideTestArg(squareDef, 'i', 2),
-                new SideTestArg(squareDef, 'j', 2),
-                new SideTestArg(squareDef, 'k', 3),
-                new SideTestArg(squareDef, 'l', 3),
-                new SideTestArg(squareDef, 'm', 3),
-                new SideTestArg(squareDef, 'A', 0),
-                new SideTestArg(squareDef, 'D', 1),
-                new SideTestArg(squareDef, 'H', 2),
-                new SideTestArg(squareDef, 'K', 3),
-                // test case sensitivity
-                new SideTestArg(squareDef.toUpperCase(), 'a', 0),
-                new SideTestArg(squareDef.toUpperCase(), 'd', 1),
-                new SideTestArg(squareDef.toUpperCase(), 'h', 2),
-                new SideTestArg(squareDef.toUpperCase(), 'k', 3),
-                new SideTestArg(squareDef.toUpperCase(), 'A', 0),
-                new SideTestArg(squareDef.toUpperCase(), 'D', 1),
-                new SideTestArg(squareDef.toUpperCase(), 'H', 2),
-                new SideTestArg(squareDef.toUpperCase(), 'K', 3)
-        );
-    }
-
     @SuppressWarnings("SpellCheckingInspection")
     static Stream<TestArg_isValid> isValid_argsProvider() {
         final var squareDef = "abc,def,hij,klm";
@@ -77,12 +40,6 @@ class SquareTest {
                 new TestArg_isValid(squareDef, "adhk", true),
                 new TestArg_isValid(squareDef, "mdaha", true)
         );
-    }
-
-    @ParameterizedTest
-    @MethodSource("argsProvider")
-    void side(SideTestArg p) {
-        assertEquals(new Square(p.squareDef).side(p.letter), p.expectedSide);
     }
 
     @ParameterizedTest
