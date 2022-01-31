@@ -1,20 +1,25 @@
 package com.iantsmall.mfj.challenge1;
 
+import lombok.Data;
+import lombok.Value;
+
 import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.List;
 
+@Value
+@Data
 class Square {
-    private final List<String> sides;
+    List<String> sides;
 
     /**
-     * Create a LetterBox game's Square from a string square definition.
+     * Create a LetterBox game's Square defined from a string square definition.
      *
      * @param def the case-insensitive string definition of a square, in the format "ABC,EGL,API"
      */
     public Square(String def) {
-        var sides = Arrays.asList(def.toUpperCase().split(","));
-        var numSides = sides.size();
+        final var sides = Arrays.asList(def.toUpperCase().split(","));
+        final var numSides = sides.size();
         if (numSides != 4) {
             var msg = String.format("Square string definition must have 4 sides, discovered %o", numSides);
             throw new InvalidParameterException(msg);
@@ -22,6 +27,11 @@ class Square {
         this.sides = sides;
     }
 
+    /**
+     * Confirms is a word is a valid word for the Square.
+     * @param word the word to check
+     * @return true if the word is valid, else false
+     */
     public boolean isValid(String word) {
         // a valid word is at least 3 letters long, with a letter on each square side, and no repeating sides.
         // argument length check
@@ -46,7 +56,7 @@ class Square {
      * @param letter a string containing a single letter
      * @return the index of the side the letter is in, 0-3, -1 if not present
      */
-    public int side(char letter) {
+    private int side(char letter) {
         var letterString = Character.toString(letter).toUpperCase();
         for (var i = 0; i <= 3; ++i) {
             if (this.sides.get(i).contains(letterString)) {

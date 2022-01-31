@@ -1,14 +1,24 @@
 package com.iantsmall.mfj.challenge1;
 
+import lombok.Value;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+/**
+ * Words is composed of a file name which is opened within consumeWords.
+ * Filename validity is not fully checked until consumeWords is invoked.
+ */
+@Value
 public class Words {
-    final String fileName;
+    String fileName;
 
+    /**
+     * @param fileName A string containing the filename path to open as a Stream of word Strings
+     */
     public Words(final String fileName) {
         if (fileName == null) {
             throw new IllegalArgumentException("Words constructor given unexpected nonnull filename");
@@ -19,20 +29,9 @@ public class Words {
     }
 
     /**
-     * Performs an action for each element of this stream.
+     * Opens a Stream of individual word Strings which are then fed to the consumer with consumer.accept(stream).
      *
-     * <p>This is a <a href="package-summary.html#StreamOps">terminal
-     * operation</a>.
-     *
-     * <p>The behavior of this operation is explicitly nondeterministic.
-     * For parallel stream pipelines, this operation does <em>not</em>
-     * guarantee to respect the encounter order of the stream, as doing so
-     * would sacrifice the benefit of parallelism.  For any given element, the
-     * action may be performed at whatever time and in whatever thread the
-     * library chooses.  If the action accesses shared state, it is
-     * responsible for providing the required synchronization.
-     *
-     * @param consumer a consumer which accepts the stream of words
+     * @param consumer a consumer which accepts the Stream of word Strings
      */
     void consumeWords(Consumer<Stream<String>> consumer) throws IOException {
         try (Stream<String> stream = Files.lines(Paths.get(this.fileName))) {
